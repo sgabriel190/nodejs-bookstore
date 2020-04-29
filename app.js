@@ -35,6 +35,11 @@ app.get('/chestionar', (req, res) => {
             intrebare: 'Ati achizitionat carti de pe site-ul nostru?',
             variante: ['Da', 'Nu'],
             corect: 0
+        },
+        {
+            intrebare: 'Cate ore pe saptamana alocati cititului?',
+            variante: ['Intre 1-2 ore', 'Intre 2-4 ore', 'Deloc', 'Nici una din variantele de mai sus'],
+            corect: 0
         }
     ];
     // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
@@ -42,8 +47,8 @@ app.get('/chestionar', (req, res) => {
 });
 
 app.post('/rezultat-chestionar', (req, res) => {
-    console.log(req.body);
     res.send("formular: " + JSON.stringify(req.body));
+    res.render('rezultat-chestionar', { raspunsuri: JSON.stringify(req.body) });
 });
 
 app.listen(port, () => console.log(`Serverul rulează la adresa http://localhost:`));
