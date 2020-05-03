@@ -2,7 +2,7 @@
 <br />
 <% var i = 0; 
 for(var key in raspunsuri) { 
-if(raspunsuri[key] == intrebari[i].corect) {%>
+if(raspunsuri[key] == intrebari.listaIntrebari[i].corect) {%>
     <p>Raspunsul la intrebarea
         <%= i+1 %> este corect!</p>
     <% }else{%>
@@ -10,7 +10,7 @@ if(raspunsuri[key] == intrebari[i].corect) {%>
             <%= i+1 %> este gresit!</p>
         <% } %>
             <p>Raspuns corect:
-                <%- intrebari[i].variante[intrebari[i].corect]%>
+                <%- intrebari.listaIntrebari[i].variante[intrebari.listaIntrebari[i].corect]%>
             </p>
             <br /><br />
             <% i++; } %>

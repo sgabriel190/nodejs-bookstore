@@ -4,28 +4,10 @@ const bodyParser = require("body-parser");
 const app = express();
 const port = 6789;
 
-const listaIntrebari = [
-  {
-    intrebare: "Sunteti pasionat de carti?",
-    variante: ["Da", "Nu", "Citesc ocazional"],
-    corect: 0,
-  },
-  {
-    intrebare: "Ati achizitionat carti de pe site-ul nostru?",
-    variante: ["Da", "Nu"],
-    corect: 1,
-  },
-  {
-    intrebare: "Cate ore pe saptamana alocati cititului?",
-    variante: [
-      "Intre 1-2 ore",
-      "Intre 2-4 ore",
-      "Deloc",
-      "Nici una din variantele de mai sus",
-    ],
-    corect: 2,
-  },
-];
+const fs = require("fs");
+const intrebari_raw = fs.readFileSync("intrebari.json");
+
+const json_intrebari = JSON.parse(intrebari_raw);
 
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
 app.set("view engine", "ejs");
@@ -49,17 +31,17 @@ app.get("/", (req, res) => res.send("Hello World"));
 
 // la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
 app.get("/chestionar", (req, res) => {
-  // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
-  res.render("chestionar", { intrebari: listaIntrebari });
+    // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
+    res.render("chestionar", { intrebari: json_intrebari });
 });
 
 app.post("/rezultat-chestionar", (req, res) => {
-  res.render("rezultat-chestionar", {
-    raspunsuri: req.body,
-    intrebari: listaIntrebari,
-  });
+    res.render("rezultat-chestionar", {
+        raspunsuri: req.body,
+        intrebari: json_intrebari
+    });
 });
 
 app.listen(port, () =>
-  console.log(`Serverul rulează la adresa http://localhost:`)
+    console.log(`Serverul rulează la adresa http://localhost:`)
 );
