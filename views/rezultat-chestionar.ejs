@@ -3,9 +3,11 @@
 <% var i = 0; 
 for(var key in raspunsuri) { 
 if(raspunsuri[key] == intrebari[i].corect) {%>
-    <p>Primul raspuns este corect!</p>
+    <p>Raspunsul la intrebarea
+        <%= i+1 %> este corect!</p>
     <% }else{%>
-        <p>Primul raspuns este gresit!</p>
+        <p>Raspunsul la intrebarea
+            <%= i+1 %> este gresit!</p>
         <% } %>
             <p>Raspuns corect:
                 <%- intrebari[i].variante[intrebari[i].corect]%>
