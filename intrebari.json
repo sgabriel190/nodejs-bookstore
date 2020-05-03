@@ -1,0 +1,23 @@
+{
+    "listaIntrebari": [{
+            "intrebare": "Sunteti pasionat de carti?",
+            "variante": ["Da", "Nu", "Citesc ocazional"],
+            "corect": 0
+        },
+        {
+            "intrebare": "Ati achizitionat carti de pe site-ul nostru?",
+            "variante": ["Da", "Nu"],
+            "corect": 1
+        },
+        {
+            "intrebare": "Cate ore pe saptamana alocati cititului?",
+            "variante": [
+                "Intre 1-2 ore",
+                "Intre 2-4 ore",
+                "Deloc",
+                "Nici una din variantele de mai sus"
+            ],
+            "corect": 2
+        }
+    ]
+}
