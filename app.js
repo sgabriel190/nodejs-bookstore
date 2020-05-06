@@ -31,6 +31,10 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+app.get("/autentificare", (req, res) => {
+    res.render("autentificare");
+});
+
 // la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
 app.get("/chestionar", (req, res) => {
     // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
