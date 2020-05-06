@@ -1,8 +1,10 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const app = express();
 const port = 6789;
+
 
 const fs = require("fs");
 const intrebari_raw = fs.readFileSync("intrebari.json");
@@ -39,12 +41,12 @@ app.get("/autentificare", (req, res) => {
     res.render("autentificare");
 });
 
-app.get("/verificare-autentificare", (req, res) => {
-    //let raspuns_json = req.body;
-    res.send(req.body);
-    //res.cookie = "utilizator=" + req.body.nume_utilizator;
+app.post("/verificare-autentificare", (req, res) => {
+    let raspuns_json = req.body;
 
-    //res.redirect("http://localhost:6789/");
+    res.cookie = "utilizator=" + raspuns_json.nume_utilizator + "; parola=" + raspuns_json.parola_utilizator + ";";
+
+    res.redirect("http://localhost:6789/");
 });
 
 app.get("/chestionar", (req, res) => {
