@@ -9,6 +9,7 @@ const intrebari_raw = fs.readFileSync("intrebari.json");
 
 const json_intrebari = JSON.parse(intrebari_raw);
 
+
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
 app.set("view engine", "ejs");
 
@@ -18,15 +19,18 @@ app.use(expressLayouts);
 // directorul 'public' va conține toate resursele accesibile direct de către client (e.g., fișiere css, javascript, imagini)
 app.use(express.static("public"));
 
+// Adaugarea cookie parserului
+app.use(cookieParser());
+
 // corpul mesajului poate fi interpretat ca json; datele de la formular se găsesc în format json în req.body
 app.use(bodyParser.json());
 
 // utilizarea unui algoritm de deep parsing care suportă obiecte în obiecte
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// la accesarea din browser adresei http://localhost:6789/ se va returna textul 'Hello World'
-// proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
-// proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
+/**
+ * Maparea locatiilor website-ului
+ */
 app.get("/", (req, res) => {
     res.render("index");
 });
@@ -35,9 +39,15 @@ app.get("/autentificare", (req, res) => {
     res.render("autentificare");
 });
 
-// la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
+app.get("/verificare-autentificare", (req, res) => {
+    //let raspuns_json = req.body;
+    res.send(req.body);
+    //res.cookie = "utilizator=" + req.body.nume_utilizator;
+
+    //res.redirect("http://localhost:6789/");
+});
+
 app.get("/chestionar", (req, res) => {
-    // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
     res.render("chestionar", { intrebari: json_intrebari });
 });
 
