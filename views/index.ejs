@@ -1,10 +1,11 @@
+<a href="/autentificare">Autentificare</a>
+<br /><br />
 <% if(utilizator != null) { %>
     <p>Bine ati venit,
         <%- utilizator %>!
     </p>
+
+    <form action="/logout" method="post">
+        <input type="submit" value="Log out">
+    </form>
     <% } %>
-        <a href="/autentificare">Autentificare</a>
-        <br /><br />
-        <form action="/logout" method="post">
-            <input type="submit" value="Log out">
-        </form>
