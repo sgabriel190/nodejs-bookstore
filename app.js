@@ -6,7 +6,7 @@ const sessionModule = require("express-session");
 const app = express();
 const port = 6789;
 
-
+// Citirea fisierelor
 const fs = require("fs");
 const intrebari_raw = fs.readFileSync("intrebari.json");
 const utilizatori_raw = fs.readFileSync("utilizatori.json");
@@ -19,7 +19,7 @@ app.use(sessionModule({
     name: "pw",
     secret: "abc",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 2,
         sameSite: true
@@ -58,10 +58,12 @@ app.post("/verificare-autentificare", (req, res) => {
     if (json_utilizatori.utilizatori.some(
             item => item.utilizator == raspuns_json.nume_utilizator && item.parola == raspuns_json.parola_utilizator
         )) {
+        req.session.mesajEroare = null;
         req.session.utilizator = raspuns_json.nume_utilizator;
         res.redirect("http://localhost:6789/");
     } else {
         req.session.mesajEroare = "Datele introduse sunt incorecte.";
+        req.session.utilizator = null;
         res.redirect("http://localhost:6789/autentificare");
     }
 });
