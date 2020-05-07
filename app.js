@@ -8,7 +8,9 @@ const port = 6789;
 
 const fs = require("fs");
 const intrebari_raw = fs.readFileSync("intrebari.json");
+const utilizatori_raw = fs.readFileSync("utilizatori.json");
 
+const json_utilizatori = JSON.parse(utilizatori_raw);
 const json_intrebari = JSON.parse(intrebari_raw);
 
 
@@ -34,19 +36,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
  * Maparea locatiilor website-ului
  */
 app.get("/", (req, res) => {
-    res.render("index");
+    res.render("index", { utilizator: req.cookies.utilizator });
 });
 
 app.get("/autentificare", (req, res) => {
-    res.render("autentificare");
+    res.render("autentificare", { mesajEroare: req.cookies.mesajEroare });
 });
 
 app.post("/verificare-autentificare", (req, res) => {
     let raspuns_json = req.body;
 
-    res.cookie = "utilizator=" + raspuns_json.nume_utilizator + "; parola=" + raspuns_json.parola_utilizator + ";";
-
-    res.redirect("http://localhost:6789/");
+    if (raspuns_json.nume_utilizator == json_utilizatori.utilizator && raspuns_json.parola_utilizator == json_utilizatori.parola) {
+        res.cookie("utilizator", raspuns_json.nume_utilizator);
+        res.redirect("http://localhost:6789/");
+    } else {
+        res.cookie("mesajEroare", "Datele introduse sunt incorecte.");
+        res.redirect("http://localhost:6789/autentificare");
+    }
 });
 
 app.get("/chestionar", (req, res) => {

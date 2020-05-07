@@ -1,13 +1,18 @@
-<form action="/verificare-autentificare" method="post">
+<% if(mesajEroare != null) {%>
+    <p>
+        <%- mesajEroare %>
+    </p>
+    <% } %>
+        <form action="/verificare-autentificare" method="post">
 
-    <label>Utilizator: </label>
-    <input type="text" placeholder="Introduceti utilizatorul" name="nume_utilizator" required>
-    <br/>
+            <label>Utilizator: </label>
+            <input type="text" placeholder="Introduceti utilizatorul" name="nume_utilizator" required>
+            <br/>
 
-    <label>Parola: </label>
-    <input type="password" placeholder="Introduceti parola" name="parola_utilizator" required>
-    <br/>
+            <label>Parola: </label>
+            <input type="password" placeholder="Introduceti parola" name="parola_utilizator" required>
+            <br/>
 
-    <input type="submit" value="Autentificare">
+            <input type="submit" value="Autentificare">
 
-</form>
+        </form>
