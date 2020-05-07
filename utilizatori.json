@@ -1,4 +1,15 @@
 {
-    "utilizator": "test",
-    "parola": "test"
+    "utilizatori": [{
+            "utilizator": "test",
+            "parola": "test"
+        },
+        {
+            "utilizator": "admin",
+            "parola": "admin"
+        },
+        {
+            "utilizator": "1234",
+            "parola": "1234"
+        }
+    ]
 }
