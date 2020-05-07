@@ -1,8 +1,8 @@
-<a href="/autentificare">Autentificare</a>
 <% if(utilizator != null) { %>
     <p>Bine ati venit,
         <%- utilizator %>!
     </p>
+    <a href="/autentificare">Autentificare</a>
     <% } %>
         <br /><br />
         <form action="/logout" method="post">

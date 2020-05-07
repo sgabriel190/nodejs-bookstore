@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/autentificare", (req, res) => {
-    res.render("autentificare", { mesajEroare: req.session.mesajEroare });
+    res.render("autentificare", { mesajEroare: req.session.mesajEroare, utilizator: req.session.utilizator });
 });
 
 app.post("/verificare-autentificare", (req, res) => {
@@ -67,13 +67,14 @@ app.post("/verificare-autentificare", (req, res) => {
 });
 
 app.get("/chestionar", (req, res) => {
-    res.render("chestionar", { intrebari: json_intrebari });
+    res.render("chestionar", { intrebari: json_intrebari, utilizator: req.session.utilizator });
 });
 
 app.post("/rezultat-chestionar", (req, res) => {
     res.render("rezultat-chestionar", {
         raspunsuri: req.body,
-        intrebari: json_intrebari
+        intrebari: json_intrebari,
+        utilizator: req.session.utilizator
     });
 });
 
