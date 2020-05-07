@@ -45,11 +45,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
  * Maparea locatiilor website-ului
  */
 app.get("/", (req, res) => {
-    res.render("index", { utilizator: req.session.utilizator });
+    res.locals.utilizator = req.session.utilizator;
+    res.render("index");
 });
 
 app.get("/autentificare", (req, res) => {
-    res.render("autentificare", { mesajEroare: req.session.mesajEroare, utilizator: req.session.utilizator });
+    res.locals.utilizator = req.session.utilizator;
+    res.locals.mesajEroare = req.session.mesajEroare;
+    res.render("autentificare");
 });
 
 app.post("/verificare-autentificare", (req, res) => {
@@ -69,7 +72,8 @@ app.post("/verificare-autentificare", (req, res) => {
 });
 
 app.get("/chestionar", (req, res) => {
-    res.render("chestionar", { intrebari: json_intrebari, utilizator: req.session.utilizator });
+    res.locals.utilizator = req.session.utilizator;
+    res.render("chestionar", { intrebari: json_intrebari });
 });
 
 app.post("/rezultat-chestionar", (req, res) => {
