@@ -1,15 +1,21 @@
 {
     "utilizatori": [{
             "utilizator": "test",
-            "parola": "test"
+            "parola": "test",
+            "nume": "Popa",
+            "prenume": "Andrei"
         },
         {
             "utilizator": "admin",
-            "parola": "admin"
+            "parola": "admin",
+            "nume": "Popescu",
+            "prenume": "Andreea"
         },
         {
             "utilizator": "1234",
-            "parola": "1234"
+            "parola": "1234",
+            "nume": "Vasile",
+            "prenume": "Ion"
         }
     ]
 }
