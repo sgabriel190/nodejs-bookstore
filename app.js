@@ -4,6 +4,15 @@ const bodyParser = require("body-parser");
 const sessionModule = require("express-session");
 const sqlite3 = require("sqlite3").verbose();
 
+let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
+    sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+    (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log("Connected to the cumparaturi database.");
+    });
+
 const app = express();
 const port = 6789;
 
@@ -67,6 +76,25 @@ app.get("/chestionar", (req, res) => {
     res.render("chestionar", { intrebari: json_intrebari });
 });
 
+app.get("/creare-bd", (req, res) => {
+    let sql_cmd = `CREATE TABLE IF NOT EXISTS produse(
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        author TEXT NOT NULL,
+        isbn TEXT NOT NULL,
+        genre TEXT
+    )`;
+
+    db_cumparaturi.run(sql_cmd);
+
+    res.redirect("http://localhost:6789/");
+});
+
+app.get("/inserare-bd", (req, res) => {
+
+    res.redirect("http://localhost:6789/");
+});
+
 
 // POST methods
 app.post("/verificare-autentificare", (req, res) => {
@@ -101,20 +129,4 @@ app.post("/logout", (req, res) => {
         res.clearCookie("pw");
         res.redirect("http://localhost:6789/");
     });
-});
-
-app.post("/creare-bd", (req, res) => {
-    let db = new sqlite3.Database('./cumparaturi.db', (err) => {
-        if (err) {
-            console.error(err.message);
-        }
-        console.log("Connected to the cumparaturi database.");
-    });
-
-    res.redirect("http://localhost:6789/");
-});
-
-app.post("/inserare-bd", (req, res) => {
-
-    res.redirect("http://localhost:6789/");
 });
