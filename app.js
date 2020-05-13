@@ -2,6 +2,7 @@ const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const sessionModule = require("express-session");
+const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
 const port = 6789;
@@ -44,6 +45,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * Maparea locatiilor website-ului
  */
+
+app.listen(port, () =>
+    console.log("Serverul rulează la adresa http://localhost:")
+);
+
+// GET methods
 app.get("/", (req, res) => {
     res.locals.utilizator = req.session.utilizator;
     res.render("index");
@@ -55,6 +62,13 @@ app.get("/autentificare", (req, res) => {
     res.render("autentificare");
 });
 
+app.get("/chestionar", (req, res) => {
+    res.locals.utilizator = req.session.utilizator;
+    res.render("chestionar", { intrebari: json_intrebari });
+});
+
+
+// POST methods
 app.post("/verificare-autentificare", (req, res) => {
     let raspuns_json = req.body;
 
@@ -69,11 +83,6 @@ app.post("/verificare-autentificare", (req, res) => {
         req.session.utilizator = null;
         res.redirect("http://localhost:6789/autentificare");
     }
-});
-
-app.get("/chestionar", (req, res) => {
-    res.locals.utilizator = req.session.utilizator;
-    res.render("chestionar", { intrebari: json_intrebari });
 });
 
 app.post("/rezultat-chestionar", (req, res) => {
@@ -94,6 +103,18 @@ app.post("/logout", (req, res) => {
     });
 });
 
-app.listen(port, () =>
-    console.log("Serverul rulează la adresa http://localhost:")
-);
+app.post("/creare-bd", (req, res) => {
+    let db = new sqlite3.Database('./cumparaturi.db', (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log("Connected to the cumparaturi database.");
+    });
+
+    res.redirect("http://localhost:6789/");
+});
+
+app.post("/inserare-bd", (req, res) => {
+
+    res.redirect("http://localhost:6789/");
+});
