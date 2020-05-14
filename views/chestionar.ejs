@@ -1,7 +1,9 @@
 <% if(utilizator != null) { %>
-    <p>Logat ca
-        <%- utilizator %>.
-    </p>
+    <div class="welcome_container">
+        <p id="welcome_message">Logat ca
+            <%- utilizator %>.
+        </p>
+    </div>
     <% } %>
         <h1>Chestionar</h1>
         <form action="/rezultat-chestionar" method="post">

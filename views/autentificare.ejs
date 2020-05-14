@@ -1,7 +1,9 @@
 <% if(utilizator != null) { %>
-    <p>Logat ca
-        <%- utilizator %>.
-    </p>
+    <div class="welcome_container">
+        <p id="welcome_message">Logat ca
+            <%- utilizator %>.
+        </p>
+    </div>
 
     <% }
 if(mesajEroare != null) {%>
@@ -10,11 +12,9 @@ if(mesajEroare != null) {%>
         </p>
         <% } %>
             <form action="/verificare-autentificare" method="post">
-
                 <label>Utilizator: </label>
                 <input type="text" placeholder="Introduceti utilizatorul" name="nume_utilizator" required>
                 <br/>
-
                 <label>Parola: </label>
                 <input type="password" placeholder="Introduceti parola" name="parola_utilizator" required>
                 <br/>
