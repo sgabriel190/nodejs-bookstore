@@ -11,8 +11,26 @@ nav a {
     text-decoration: none;
     font-size: 25px;
     text-shadow: black 0px 0px 1px;
-    color: #00cc66;
+    color: #006600;
     font-family: "Lucida Console", Courier, monospace;
+    margin: 0px 20px;
+}
+
+nav a:hover {
+    color: #e0ebeb;
+    transition: 0.3s;
+}
+
+.welcome_container {
+    font-size: 30px;
+    text-align: right;
+    background-color: #66c2ff;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#welcome_message {
+    margin-right: 100px;
 }
 
 #page_header {
@@ -47,4 +65,27 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     margin: auto;
+}
+
+.button {
+    background-color: #4d79ff;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#buttons_index {
+    text-align: right;
+}
+
+form {
+    display: inline;
+    margin: 0px 15px;
 }

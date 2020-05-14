@@ -1,15 +1,18 @@
 <% if(utilizator != null) { %>
-    <p>Bine ati venit,
-        <%- utilizator %>!
-    </p>
-
-    <form action="/logout" method="post">
-        <input type="submit" value="Log out">
-    </form>
-    <form action="/creare-bd" method="get">
-        <input type="submit" value="Creare BD">
-    </form>
-    <form action="/inserare-bd" method="get">
-        <input type="submit" value="Încărcare BD">
-    </form>
+    <div class="welcome_container">
+        <p id="welcome_message">Bine ati venit,
+            <%- utilizator %>!
+        </p>
+    </div>
+    <div id="buttons_index">
+        <form action="/logout" method="post">
+            <input class="button" type="submit" value="Log out">
+        </form>
+        <form action="/creare-bd" method="get">
+            <input class="button" type="submit" value="Creare BD">
+        </form>
+        <form action="/inserare-bd" method="get">
+            <input class="button" type="submit" value="Încărcare BD">
+        </form>
+    </div>
     <% } %>
