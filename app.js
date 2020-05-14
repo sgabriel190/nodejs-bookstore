@@ -95,6 +95,10 @@ app.get("/inserare-bd", (req, res) => {
     res.redirect("http://localhost:6789/");
 });
 
+app.get("/vizualizare-cos", (req, res) => {
+
+});
+
 
 // POST methods
 app.post("/verificare-autentificare", (req, res) => {
@@ -129,4 +133,8 @@ app.post("/logout", (req, res) => {
         res.clearCookie("pw");
         res.redirect("http://localhost:6789/");
     });
+});
+
+app.post("/adaugare-cos", (req, res) => {
+
 });
