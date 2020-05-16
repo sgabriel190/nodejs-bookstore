@@ -92,3 +92,22 @@ form {
     display: inline;
     margin: 0px 15px;
 }
+
+.books_db {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+
+.books_db th,
+.books_db td {
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+.books_db th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+}

@@ -3,7 +3,6 @@ const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const sessionModule = require("express-session");
 const sqlite3 = require("sqlite3").verbose();
-let bookDB = [];
 
 let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
@@ -11,7 +10,7 @@ let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
         if (err) {
             console.error(err.message);
         }
-        console.log("Connected to the cumparaturi database.");
+        console.log("[DB-info]:Connected to the cumparaturi database.");
     });
 
 const app = express();
@@ -64,17 +63,24 @@ app.listen(port, () =>
 app.get("/", (req, res) => {
     res.locals.utilizator = req.session.utilizator;
     let sql_cmd = `SELECT * FROM produse`;
+    let bookDB = [];
 
-    db_cumparaturi.serialize(() => {
-        db_cumparaturi.all(sql_cmd, [], (err, rows) => {
-            if (err) {
-                return console.log(err.message);
-            }
-            bookDB = rows;
-            console.log("Selectare date din tabelul produse.");
+    let promise = new Promise((resolve, reject) => {
+        db_cumparaturi.serialize(() => {
+            db_cumparaturi.all(sql_cmd, [], (err, rows) => {
+                if (err) {
+                    reject(err.message);
+                }
+                bookDB = rows;
+                console.log("[DB-info]:Selectare date din tabelul produse.");
+                resolve();
+            });
         });
     });
-    res.render("index", { bookDB: bookDB });
+
+    promise.then(() => {
+        res.render("index", { bookDB: bookDB });
+    }).catch(err => console.log(err));
 });
 
 app.get("/autentificare", (req, res) => {
@@ -90,6 +96,7 @@ app.get("/chestionar", (req, res) => {
 
 app.get("/creare-bd", (req, res) => {
     let sql_cmd = `CREATE TABLE produse(
+        id INTEGER NOT NULL PRIMARY KEY,
         name TEXT NOT NULL,
         author TEXT NOT NULL,
         isbn TEXT NOT NULL,
@@ -101,13 +108,13 @@ app.get("/creare-bd", (req, res) => {
             if (err) {
                 return console.log(err.message);
             }
-            console.log("Tabelul produse a fost sters.");
+            console.log("[DB-info]:Tabelul produse a fost sters.");
         })
         db_cumparaturi.run(sql_cmd, (err) => {
             if (err) {
                 return console.log(err.message);
             }
-            console.log("Tabelul produse a fost creat.");
+            console.log("[DB-info]:Tabelul produse a fost creat.");
         });
     });
 
@@ -116,14 +123,14 @@ app.get("/creare-bd", (req, res) => {
 
 app.get("/inserare-bd", (req, res) => {
     let bookRecords = [
-        ["Arta subtila a nepasarii", "Mark Manson", "978-606-789-109-6", "Lifestyle"],
-        ["The economics book", "DK", "978-140-937-641-5", "Economics"],
-        ["Pacienta tacuta", "Alex Michaelides", "978-606-333-606-5", "Fiction"],
-        ["Pride and Prejudice", "Jane Austen", "978-178-487-172-7", "Novel"],
+        [1, "Arta subtila a nepasarii", "Mark Manson", "978-606-789-109-6", "Lifestyle"],
+        [2, "The economics book", "DK", "978-140-937-641-5", "Economics"],
+        [3, "Pacienta tacuta", "Alex Michaelides", "978-606-333-606-5", "Fiction"],
+        [4, "Pride and Prejudice", "Jane Austen", "978-178-487-172-7", "Novel"],
     ];
-    let bookPlaceholders = bookRecords.map(() => "(?, ?, ?, ?)").join(', ');
+    let bookPlaceholders = bookRecords.map(() => "(?, ?, ?, ?, ?)").join(', ');
     flatBooks = []
-    let sql_cmd = `INSERT INTO produse (name, author, isbn, genre) 
+    let sql_cmd = `INSERT INTO produse (id, name, author, isbn, genre) 
                     VALUES ` + bookPlaceholders;
     bookRecords.forEach((elem) => {
         elem.forEach((item) => {
@@ -135,7 +142,7 @@ app.get("/inserare-bd", (req, res) => {
             if (err) {
                 return console.log(err.message);
             }
-            console.log("Date inserate tabela produse.");
+            console.log("[DB-info]:Date inserate tabela produse.");
         });
     });
     res.redirect("http://localhost:6789/");
@@ -183,4 +190,5 @@ app.post("/logout", (req, res) => {
 
 app.post("/adaugare-cos", (req, res) => {
 
+    res.render("vizualizare-cos");
 });

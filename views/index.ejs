@@ -16,7 +16,7 @@
         </form>
     </div>
     <% if(bookDB.length != 0){ %>
-        <div id="tabel">
+        <div id="tabel_database">
             <table class="books_db">
                 <tr>
                     <th>ID</th>
@@ -24,11 +24,12 @@
                     <th>Author</th>
                     <th>ISBN</th>
                     <th>Genre</th>
+                    <th>Adaugă</th>
                 </tr>
                 <% for(var i=0; i<bookDB.length; ++i){ %>
                     <tr>
                         <td>
-                            <%- i+1 %>
+                            <%- bookDB[i].id %>
                         </td>
                         <td>
                             <%- bookDB[i].name %>
@@ -41,6 +42,12 @@
                         </td>
                         <td>
                             <%- bookDB[i].genre %>
+                        </td>
+                        <td>
+                            <form action="/adaugare-cos" method="post">
+                                <input type="hidden" name="id" value="<%- bookDB[i].id %>">.
+                                <input class="button" type="submit" value="Adăugare în coş">
+                            </form>
                         </td>
                     </tr>
                     <% }%>
