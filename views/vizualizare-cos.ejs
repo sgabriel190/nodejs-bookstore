@@ -1,0 +1,32 @@
+<% if(listaCumparaturi.length != 0){ %>
+    <div class="tabel_database">
+        <table class="books_db">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Genre</th>
+            </tr>
+            <% for(var i=0; i<listaCumparaturi.length; ++i){ %>
+                <tr>
+                    <td>
+                        <%- listaCumparaturi[i].id %>
+                    </td>
+                    <td>
+                        <%- listaCumparaturi[i].name %>
+                    </td>
+                    <td>
+                        <%- listaCumparaturi[i].author %>
+                    </td>
+                    <td>
+                        <%- listaCumparaturi[i].isbn %>
+                    </td>
+                    <td>
+                        <%- listaCumparaturi[i].genre %>
+                    </td>
+                </tr>
+                <% }%>
+        </table>
+    </div>
+    <% } %>

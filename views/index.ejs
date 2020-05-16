@@ -14,9 +14,12 @@
         <form action="/inserare-bd" method="get">
             <input class="button" type="submit" value="Încărcare BD">
         </form>
+        <form action="/vizualizare-cos" method="get">
+            <input class="button" type="submit" value="Vizualizare coş">
+        </form>
     </div>
     <% if(bookDB.length != 0){ %>
-        <div id="tabel_database">
+        <div class="table_database">
             <table class="books_db">
                 <tr>
                     <th>ID</th>
@@ -45,7 +48,7 @@
                         </td>
                         <td>
                             <form action="/adaugare-cos" method="post">
-                                <input type="hidden" name="id" value="<%- bookDB[i].id %>">.
+                                <input type="hidden" name="id" value="<%- bookDB[i].id %>">
                                 <input class="button" type="submit" value="Adăugare în coş">
                             </form>
                         </td>

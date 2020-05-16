@@ -117,7 +117,6 @@ app.get("/creare-bd", (req, res) => {
             console.log("[DB-info]:Tabelul produse a fost creat.");
         });
     });
-
     res.redirect("http://localhost:6789/");
 });
 
@@ -149,7 +148,33 @@ app.get("/inserare-bd", (req, res) => {
 });
 
 app.get("/vizualizare-cos", (req, res) => {
-
+    var lista_carti = [];
+    var listaCumparaturiID = req.session.listaCos;
+    var getBookFunction = (id) => {
+        return new Promise((resolve, reject) => {
+            var sql_cmd = `SELECT * FROM produse WHERE id=${id}`;
+            db_cumparaturi.serialize(() => {
+                db_cumparaturi.all(sql_cmd, [], (err, rows) => {
+                    if (err) {
+                        reject(err.message);
+                    }
+                    resolve(rows[0]);
+                });
+            });
+        });
+    };
+    let promise = new Promise(async(resolve, reject) => {
+        for (var i = 0; i < listaCumparaturiID.length; ++i) {
+            await getBookFunction(listaCumparaturiID[i]).then((arg) => {
+                    lista_carti.push(arg);
+                })
+                .catch(err => console.log(err));
+        }
+        resolve();
+    });
+    promise.then(() => {
+        res.render("vizualizare-cos", { listaCumparaturi: lista_carti });
+    });
 });
 
 
@@ -162,6 +187,7 @@ app.post("/verificare-autentificare", (req, res) => {
         )) {
         req.session.mesajEroare = null;
         req.session.utilizator = raspuns_json.nume_utilizator;
+        req.session.listaCos = [];
         res.redirect("http://localhost:6789/");
     } else {
         req.session.mesajEroare = "Datele introduse sunt incorecte.";
@@ -189,6 +215,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/adaugare-cos", (req, res) => {
+    req.session.listaCos.push(req.body.id);
 
-    res.render("vizualizare-cos");
+    res.redirect("http://localhost:6789/");
 });
