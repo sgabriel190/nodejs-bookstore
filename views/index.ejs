@@ -15,4 +15,36 @@
             <input class="button" type="submit" value="Încărcare BD">
         </form>
     </div>
-    <% } %>
+    <% if(bookDB.length != 0){ %>
+        <div id="tabel">
+            <table class="books_db">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Genre</th>
+                </tr>
+                <% for(var i=0; i<bookDB.length; ++i){ %>
+                    <tr>
+                        <td>
+                            <%- i+1 %>
+                        </td>
+                        <td>
+                            <%- bookDB[i].name %>
+                        </td>
+                        <td>
+                            <%- bookDB[i].author %>
+                        </td>
+                        <td>
+                            <%- bookDB[i].isbn %>
+                        </td>
+                        <td>
+                            <%- bookDB[i].genre %>
+                        </td>
+                    </tr>
+                    <% }%>
+            </table>
+        </div>
+        <% } %>
+            <% } %>

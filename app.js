@@ -3,6 +3,7 @@ const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const sessionModule = require("express-session");
 const sqlite3 = require("sqlite3").verbose();
+let bookDB = [];
 
 let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
@@ -62,7 +63,19 @@ app.listen(port, () =>
 // GET methods
 app.get("/", (req, res) => {
     res.locals.utilizator = req.session.utilizator;
-    res.render("index");
+    let sql_cmd = `SELECT * FROM produse`;
+
+    db_cumparaturi.serialize(() => {
+        db_cumparaturi.all(sql_cmd, [], (err, rows) => {
+            if (err) {
+                return console.log(err.message);
+            }
+            bookDB = rows;
+            console.log("Selectare date din tabelul produse.");
+        });
+    });
+    console.log(bookDB);
+    res.render("index", { bookDB: bookDB });
 });
 
 app.get("/autentificare", (req, res) => {
@@ -77,21 +90,55 @@ app.get("/chestionar", (req, res) => {
 });
 
 app.get("/creare-bd", (req, res) => {
-    let sql_cmd = `CREATE TABLE IF NOT EXISTS produse(
-        id INTEGER PRIMARY KEY,
+    let sql_cmd = `CREATE TABLE produse(
         name TEXT NOT NULL,
         author TEXT NOT NULL,
         isbn TEXT NOT NULL,
         genre TEXT
     )`;
-
-    db_cumparaturi.run(sql_cmd);
+    let sql_cmd2 = "DROP TABLE IF EXISTS produse";
+    db_cumparaturi.serialize(() => {
+        db_cumparaturi.run(sql_cmd2, (err) => {
+            if (err) {
+                return console.log(err.message);
+            }
+            console.log("Tabelul produse a fost sters.");
+        })
+        db_cumparaturi.run(sql_cmd, (err) => {
+            if (err) {
+                return console.log(err.message);
+            }
+            console.log("Tabelul produse a fost creat.");
+        });
+    });
 
     res.redirect("http://localhost:6789/");
 });
 
 app.get("/inserare-bd", (req, res) => {
-
+    let bookRecords = [
+        ["Arta subtila a nepasarii", "Mark Manson", "978-606-789-109-6", "Lifestyle"],
+        ["The economics book", "DK", "978-140-937-641-5", "Economics"],
+        ["Pacienta tacuta", "Alex Michaelides", "978-606-333-606-5", "Fiction"],
+        ["Pride and Prejudice", "Jane Austen", "978-178-487-172-7", "Novel"],
+    ];
+    let bookPlaceholders = bookRecords.map(() => "(?, ?, ?, ?)").join(', ');
+    flatBooks = []
+    let sql_cmd = `INSERT INTO produse (name, author, isbn, genre) 
+                    VALUES ` + bookPlaceholders;
+    bookRecords.forEach((elem) => {
+        elem.forEach((item) => {
+            flatBooks.push(item);
+        });
+    });
+    db_cumparaturi.serialize(() => {
+        db_cumparaturi.run(sql_cmd, flatBooks, (err) => {
+            if (err) {
+                return console.log(err.message);
+            }
+            console.log("Date inserate tabela produse.");
+        });
+    });
     res.redirect("http://localhost:6789/");
 });
 
