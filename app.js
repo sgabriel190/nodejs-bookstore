@@ -74,7 +74,6 @@ app.get("/", (req, res) => {
             console.log("Selectare date din tabelul produse.");
         });
     });
-    console.log(bookDB);
     res.render("index", { bookDB: bookDB });
 });
 
