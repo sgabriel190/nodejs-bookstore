@@ -4,7 +4,7 @@
             <%- utilizator %>!
         </p>
     </div>
-    <div id="buttons_index">
+    <div class="buttons_container">
         <form action="/logout" method="post">
             <input class="button" type="submit" value="Log out">
         </form>
@@ -19,7 +19,7 @@
         </form>
     </div>
     <% if(bookDB.length != 0){ %>
-        <div class="table_database">
+        <div class="buttons_container">
             <table class="books_db">
                 <tr>
                     <th>ID</th>

@@ -4,21 +4,24 @@
             <%- utilizator %>.
         </p>
     </div>
-
     <% }
 if(mesajEroare != null) {%>
         <p>
             <%- mesajEroare %>
         </p>
         <% } %>
-            <form action="/verificare-autentificare" method="post">
-                <label>Utilizator: </label>
-                <input type="text" placeholder="Introduceti utilizatorul" name="nume_utilizator" required>
-                <br/>
-                <label>Parola: </label>
-                <input type="password" placeholder="Introduceti parola" name="parola_utilizator" required>
-                <br/>
-
-                <input type="submit" value="Autentificare">
-
-            </form>
+            <div class="auth_input_container">
+                <form class="auth_form" action="/verificare-autentificare" method="post">
+                    <div class="auth_block">
+                        <label>Utilizator:</label>
+                        <input type="text" placeholder="Introduceti utilizatorul" name="nume_utilizator" required>
+                    </div>
+                    <div class="auth_block">
+                        <label>Parola:</label>
+                        <input type="password" placeholder="Introduceti parola" name="parola_utilizator" required>
+                    </div>
+                    <div class="auth_block">
+                        <input class="button" type="submit" value="Autentificare">
+                    </div>
+                </form>
+            </div>

@@ -1,3 +1,10 @@
+/* Main containers format. */
+
+body {
+    background-color: #e6f9ff;
+    margin: auto;
+}
+
 nav {
     background-color: #66c2ff;
     width: 100%;
@@ -6,6 +13,14 @@ nav {
     margin: auto;
     text-align: center;
 }
+
+form {
+    display: inline;
+    margin: 0px 15px;
+}
+
+
+/* Nav format. */
 
 nav a {
     text-decoration: none;
@@ -19,14 +34,6 @@ nav a {
 nav a:hover {
     color: #e0ebeb;
     transition: 0.3s;
-}
-
-.welcome_container {
-    font-size: 30px;
-    text-align: right;
-    background-color: #66c2ff;
-    padding-top: 1px;
-    padding-bottom: 1px;
 }
 
 #welcome_message {
@@ -53,10 +60,6 @@ nav a:hover {
     text-shadow: black 0px 0px 2px;
 }
 
-body {
-    margin: 0px;
-}
-
 #page_footer {
     position: absolute;
     width: 100%;
@@ -70,38 +73,64 @@ body {
     padding-bottom: 10px;
 }
 
-.button {
-    background-color: #4d79ff;
-    border: none;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
 
-#buttons_index {
+/* Custom containers. */
+
+.welcome_container {
+    font-size: 30px;
     text-align: right;
+    background-color: #66c2ff;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
-form {
-    display: inline;
-    margin: 0px 15px;
-}
-
-.table_database {
+.table_container {
     text-align: center;
-    margin: auto;
 }
+
+.buttons_container {
+    text-align: center;
+}
+
+.chestionar_form {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.chestionar_container {
+    margin: 10px 10px;
+    border: 2px solid #003d4d;
+    padding: 10px;
+    width: 30%;
+    background-color: #006680;
+    color: white;
+    text-shadow: black 0px 0px 2px;
+}
+
+.auth_input_container {
+    margin: 10px;
+    padding: 10px;
+    text-align: left;
+}
+
+.auth_form {
+    display: inline;
+}
+
+.auth_block {
+    margin: 10px 5px;
+}
+
+
+/* Tables formates. */
 
 .books_db {
     text-align: center;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .books_db th,
@@ -115,4 +144,21 @@ form {
     padding-bottom: 12px;
     background-color: #4d79ff;
     color: white;
+}
+
+
+/* Buttons formates. */
+
+.button {
+    background-color: #4d79ff;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 10px;
+    cursor: pointer;
+    border-radius: 5px;
 }
