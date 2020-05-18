@@ -21,10 +21,11 @@ const fs = require("fs");
 const intrebari_raw = fs.readFileSync("intrebari.json");
 const utilizatori_raw = fs.readFileSync("utilizatori.json");
 
+// Parsarea continutui fisierelor intr-un obiect JSON
 const json_utilizatori = JSON.parse(utilizatori_raw);
 const json_intrebari = JSON.parse(intrebari_raw);
 
-
+//Adaugarea modulului session in aplicatie
 app.use(sessionModule({
     name: "pw",
     secret: "abc",
@@ -56,7 +57,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
  */
 
 app.listen(port, () =>
-    console.log("Serverul rulează la adresa http://localhost:")
+    console.log("[Server-info]Serverul rulează la adresa http://localhost:")
 );
 
 // GET methods
