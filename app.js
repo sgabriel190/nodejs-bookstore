@@ -2,8 +2,6 @@ const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const sessionModule = require("express-session");
-const AdminBro = require('admin-bro')
-const AdminBroExpress = require("admin-bro-expressjs");
 const sqlite3 = require("sqlite3").verbose();
 
 let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
@@ -38,13 +36,6 @@ app.use(sessionModule({
         sameSite: true
     }
 }));
-
-const adminBro = new AdminBro({
-    databases: [],
-    rootPath: '/admin',
-});
-const router = AdminBroExpress.buildRouter(adminBro);
-app.use(adminBro.options.rootPath, router);
 
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
 app.set("view engine", "ejs");
