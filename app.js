@@ -259,3 +259,8 @@ app.post("/adauga-bd", (req, res) => {
     });
     res.redirect("admin");
 });
+
+
+app.use((req, res) => {
+    res.send("Resursa inexistenta.");
+});
