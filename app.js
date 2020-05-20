@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const sessionModule = require("express-session");
 const sqlite3 = require("sqlite3").verbose();
 
+
 let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
     sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
     (err) => {
@@ -16,6 +17,7 @@ let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
 const app = express();
 const port = 6789;
 
+app.use(nonExistingRoutes);
 
 // Citirea fisierelor
 const fs = require("fs");
@@ -259,7 +261,6 @@ app.post("/adauga-bd", (req, res) => {
     });
     res.redirect("admin");
 });
-
 
 app.use((req, res) => {
     res.send("Resursa inexistenta.");
