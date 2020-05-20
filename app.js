@@ -16,6 +16,7 @@ let db_cumparaturi = new sqlite3.Database('./cumparaturi.db',
 const app = express();
 const port = 6789;
 
+
 // Citirea fisierelor
 const fs = require("fs");
 const intrebari_raw = fs.readFileSync("intrebari.json");
