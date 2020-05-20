@@ -62,7 +62,15 @@ app.listen(port, () =>
 
 // GET methods
 app.get("/admin", (req, res) => {
+    if (req.session.admin_user == "admin" && req.session.admin_pass == "admin") {
+        res.render("admin");
+    } else {
+        res.redirect("admin-login");
+    }
+});
 
+app.get("/admin-login", (req, res) => {
+    res.render("admin-login");
 });
 
 app.get("/", (req, res) => {
@@ -223,4 +231,30 @@ app.post("/adaugare-cos", (req, res) => {
     req.session.listaCos.push(req.body.id);
 
     res.redirect("http://localhost:6789/");
+});
+
+app.post("/verificare-admin", (req, res) => {
+    req.session.admin_user = req.body.admin_user;
+    req.session.admin_pass = req.body.admin_pass;
+    res.redirect("admin");
+});
+
+app.post("/adauga-bd", (req, res) => {
+    var sql_cmd = `INSERT INTO produse (id, name, author, isbn, genre) 
+                    VALUES (?, ?, ?, ?, ?)`;
+
+    db_cumparaturi.serialize(() => {
+        db_cumparaturi.run(sql_cmd, [req.body.id_book,
+            req.body.name_book,
+            req.body.author_book,
+            req.body.isbn_book,
+            req.body.genre_book
+        ], (err) => {
+            if (err) {
+                return console.log(err.message);
+            }
+            console.log("[DB-info]:Admin data inserat in tabela produse.");
+        })
+    });
+    res.redirect("admin");
 });
